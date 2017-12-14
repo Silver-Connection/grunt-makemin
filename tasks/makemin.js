@@ -24,7 +24,7 @@ module.exports = function (grunt) {
   };
 
   function addConfig(name, config) {
-    var cfg = grunt.config[name] || {};
+    var cfg = grunt.config.get(name) || {};
     if (config === undefined) {
       cfg["generated"] = { files: "" };
       return;

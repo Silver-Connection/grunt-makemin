@@ -41,7 +41,7 @@ We need some other grunt task in order to make thinks work, and yes we also need
 
 The ```make-bundle``` task auto generates some other task targets, you have to call them in your registered tasks. The order of the task is important, so make sure it is correct.
 
-The given sample will read all HTML wiles in ```wwwroot-src``` and will copy all processed files (styles, scripts, images...) to ```wwwroot-dest``` maintaining the original directory structure. We have also enabled log writing, so after the task is completed a file called ```make-bundle-sample.json``` will be written to project root.
+The given sample will read all HTML files in ```wwwroot-src``` and will copy all processed files (styles, scripts, images...) to ```wwwroot-dest``` maintaining the original directory structure. We have also enabled log writing, so after the task is completed a file called ```make-bundle-sample.json``` will be written to project root.
 
 ### Grunt
 

@@ -165,4 +165,4 @@ If you want to configure the ```cssmin``` or ```uglify``` task you can do so wit
 
 ## Samples
 
-You can find some samples on github in the ```sample``` directory.
+You can find some samples on [github](https://github.com/Silver-Connection/grunt-makemin) in the ```sample``` directory.

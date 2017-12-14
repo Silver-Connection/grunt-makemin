@@ -24,7 +24,7 @@ This is what ```makemin``` will do for you:
 3. Minify Javascript, CSS and HTML
 4. Rev all assets and update links
 
-For parsing the HTML files we use [cheerio.js](https://cheerio.js.org/). [cheerio.js](https://cheerio.js.org/) is great tool which will allow us much better parsing than any regular expression matching. For CSS parsing we use [css-url-parser](https://github.com/website-scraper/node-css-url-parser), which also uses tokens over regular expression which is great!
+For parsing the HTML files we use [cheerio.js](https://cheerio.js.org/). [cheerio.js](https://cheerio.js.org/) is great tool which will allow us much better parsing than any regular expression matching. For CSS parsing we use [cssurl](https://github.com/nzakas/cssurl), which also uses tokens over regular expression which is great!
 
 ## Installation
 

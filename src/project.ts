@@ -425,7 +425,7 @@ export class Project {
                         return name || url;
                     });
 
-                    css.content = rewriter.rewrite(css.content);
+                    css.content = rewriter.rewrite(css.content, '"');
                     css.isAssetReved = true;
 
                     const destPath = path.dirname(css.dest);
@@ -473,7 +473,7 @@ export class Project {
                     });
 
                     let content = fs.readFileSync(bundle.dest).toString();
-                    content = rewriter.rewrite(content);
+                    content = rewriter.rewrite(content, '"');
                     fs.writeFileSync(bundle.dest, content);
                 }
             });

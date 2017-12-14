@@ -49,7 +49,7 @@
     "mkdirp": "^0.5.1",
     "chalk": "^1.1.1",
     "cheerio": "^1.0.0-rc.2",
-    "cssurl": "^1.3.0"
+    "cssurl": "https://github.com/Silver-Connection/cssurl.git"
   },
   "devDependencies": {
     "@types/bcrypt-nodejs": "0.0.30",

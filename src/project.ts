@@ -280,7 +280,7 @@ export class Project {
         if (this.css.length > 0) {
             this.css.forEach((css, index, arry) => {
                 const rewriter = new URLRewriter(function (url: string) {
-                    if (url.substring(0, 4) === "http" || url.substring(0, 2) === "//") {
+                    if (url.substring(0, 4) === "http" || url.substring(0, 2) === "//" || url.substring(0, 4) === "data") {
                         return url;
                     }
                     const srcPath = helper.getPathFile("", css.src, url);
@@ -402,7 +402,7 @@ export class Project {
                 if (this.images.length > 0 && css.assets.length > 0 && !css.isInBundle) {
                     const images = this.images;
                     const rewriter = new URLRewriter(function (url: string) {
-                        if (url.substring(0, 4) === "http" || url.substring(0, 2) === "//") {
+                        if (url.substring(0, 4) === "http" || url.substring(0, 2) === "//" || url.substring(0, 4) === "data") {
                             return url;
                         }
 
@@ -449,7 +449,7 @@ export class Project {
                     // Replace assets in bundle
                     const images = this.images;
                     const rewriter = new URLRewriter(function (url: string) {
-                        if (url.substring(0, 4) === "http" || url.substring(0, 2) === "//") {
+                        if (url.substring(0, 4) === "http" || url.substring(0, 2) === "//" || url.substring(0, 4) === "data") {
                             return url;
                         }
 

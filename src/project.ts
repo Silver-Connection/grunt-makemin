@@ -283,14 +283,23 @@ export class Project {
                     if (url.substring(0, 4) === "http" || url.substring(0, 2) === "//" || url.substring(0, 4) === "data") {
                         return url;
                     }
-                    const srcPath = helper.getPathFile("", css.src, url);
-                    const destPath = helper.getPathFile("", css.dest, url);
+
+                    // If url hast '?' in it, this may be used for parameter. We should cut off this, for file access.
+                    const checkParam = url.indexOf("?");
+                    let cleanUrl = url;
+                    if (checkParam > -1) {
+                        cleanUrl = url.substring(0, checkParam);
+                        // console.log("URL: " + url + " -> " + cleanUrl);
+                    }
+
+                    const srcPath = helper.getPathFile("", css.src, cleanUrl);
+                    const destPath = helper.getPathFile("", css.dest, cleanUrl);
                     css.assets.push({
                         html: css.name,
                         dest: destPath,
                         src: srcPath,
                         name: url,
-                        type: path.extname(url).substring(1)
+                        type: path.extname(cleanUrl).substring(1)
                     });
                     return url;
                 });

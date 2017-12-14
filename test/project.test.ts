@@ -305,7 +305,7 @@ describe("class: HtmlFile", () => {
                     .getStyleAssets()
                     .distinctStyleAsset();
 
-                expect(project.images).toHaveLength(2);
+                expect(project.images).toHaveLength(3);
 
                 let asset = project.images[0];
                 expect(asset.name).toBe("/images/test.png");
@@ -318,6 +318,12 @@ describe("class: HtmlFile", () => {
                 expect(asset.type).toBe("png");
                 expect(asset.html).toBe("urls.css");
                 expect(asset.dest).toBe("tmp/styles/images/test.png");
+
+                asset = project.images[2];
+                expect(asset.name).toBe("/images/param.png?v=8");
+                expect(asset.type).toBe("png");
+                expect(asset.html).toBe("urls.css");
+                expect(asset.dest).toBe("images/param.png");
             });
         });
     });

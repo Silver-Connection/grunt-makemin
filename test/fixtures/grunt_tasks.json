@@ -1,0 +1,279 @@
+{
+    "src": "",
+    "dest": "",
+    "html": [
+      {
+        "name": "empty.html",
+        "src": "tmp/sub",
+        "dest": "tmp/sub-result",
+        "content": "<!DOCTYPE html>\n\n<head>\n</head>\n\n<body>\n</body>\n\n</html>",
+        "bundles": [],
+        "images": [],
+        "scripts": [],
+        "styles": []
+      },
+      {
+        "name": "index.html",
+        "src": "tmp/sub",
+        "dest": "tmp/sub-result",
+        "content": "<!DOCTYPE html>\n\n<head>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"/styles/c.css\">\n</head>\n\n<body>\n    <script src=\"~/scripts/a.js\"></script>\n</body>\n\n</html>",
+        "bundles": [
+          {
+            "html": "index.html",
+            "name": "/styles/c.css",
+            "type": "css",
+            "files": [
+              "tmp/sub/styles/c1.css",
+              "tmp/sub/styles/c2.css"
+            ],
+            "raw": [
+              "    <!-- build:css /styles/c.css -->",
+              "    <link rel=\"stylesheet\" href=\"/styles/c1.css\">",
+              "    <link rel=\"stylesheet\" href=\"/styles/c2.css\">",
+              "    <!-- endbuild -->"
+            ],
+            "lineStart": 4,
+            "lineStop": 7,
+            "dest": "tmp/sub-result/styles/c.css",
+            "convert": "<link rel=\"stylesheet\" type=\"text/css\" href=\"/styles/c.css\">"
+          },
+          {
+            "html": "index.html",
+            "name": "~/scripts/a.js",
+            "type": "js",
+            "files": [
+              "tmp/sub/scripts/a1.js",
+              "tmp/sub/scripts/a2.js"
+            ],
+            "raw": [
+              "    <!-- build:js ~/scripts/a.js -->",
+              "    <script src=\"~/scripts/a1.js\"></script>",
+              "    <script src=\"~/scripts/a2.js\"></script>",
+              "    <!-- endbuild -->"
+            ],
+            "lineStart": 11,
+            "lineStop": 14,
+            "dest": "tmp/sub-result/scripts/a.js",
+            "convert": "<script src=\"~/scripts/a.js\"></script>"
+          }
+        ],
+        "images": [],
+        "scripts": [
+          {
+            "html": "index.html",
+            "dest": "tmp/sub-result/scripts/a.js",
+            "src": "tmp/sub/scripts/a.js",
+            "name": "~/scripts/a.js",
+            "type": "js"
+          }
+        ],
+        "styles": [
+          {
+            "html": "index.html",
+            "dest": "tmp/sub-result/styles/c.css",
+            "src": "tmp/sub/styles/c.css",
+            "name": "/styles/c.css",
+            "type": "css"
+          }
+        ]
+      },
+      {
+        "name": "sub/page-1.html",
+        "src": "tmp/sub",
+        "dest": "tmp/sub-result",
+        "content": "<!DOCTYPE html>\n\n<head>\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"/styles/c.css\">\n\n    <link rel=\"stylesheet\" type=\"text/css\" href=\"~/styles/d.css\">\n</head>\n\n<body>\n    <script src=\"~/scripts/a.js\"></script>\n\n    <script src=\"/sub/b.js\"></script>\n</body>\n\n</html>",
+        "bundles": [
+          {
+            "html": "sub/page-1.html",
+            "name": "/styles/c.css",
+            "type": "css",
+            "files": [
+              "tmp/sub/styles/c1.css",
+              "tmp/sub/styles/c2.css"
+            ],
+            "raw": [
+              "    <!-- build:css /styles/c.css -->",
+              "    <link rel=\"stylesheet\" href=\"/styles/c1.css\">",
+              "    <link rel=\"stylesheet\" href=\"/styles/c2.css\">",
+              "    <!-- endbuild -->"
+            ],
+            "lineStart": 4,
+            "lineStop": 7,
+            "dest": "tmp/sub-result/styles/c.css",
+            "convert": "<link rel=\"stylesheet\" type=\"text/css\" href=\"/styles/c.css\">"
+          },
+          {
+            "html": "sub/page-1.html",
+            "name": "~/styles/d.css",
+            "type": "css",
+            "files": [
+              "tmp/sub/sub/d1.css",
+              "tmp/sub/sub/d2.css"
+            ],
+            "raw": [
+              "    <!-- build:css ~/styles/d.css -->",
+              "    <link rel=\"stylesheet\" href=\"./d1.css\">",
+              "    <link rel=\"stylesheet\" href=\"d2.css\">",
+              "    <!-- endbuild -->"
+            ],
+            "lineStart": 9,
+            "lineStop": 12,
+            "dest": "tmp/sub-result/styles/d.css",
+            "convert": "<link rel=\"stylesheet\" type=\"text/css\" href=\"~/styles/d.css\">"
+          },
+          {
+            "html": "sub/page-1.html",
+            "name": "~/scripts/a.js",
+            "type": "js",
+            "files": [
+              "tmp/sub/scripts/a1.js",
+              "tmp/sub/scripts/a2.js"
+            ],
+            "raw": [
+              "    <!-- build:js ~/scripts/a.js -->",
+              "    <script src=\"~/scripts/a1.js\"></script>",
+              "    <script src=\"~/scripts/a2.js\"></script>",
+              "    <!-- endbuild -->"
+            ],
+            "lineStart": 16,
+            "lineStop": 19,
+            "dest": "tmp/sub-result/scripts/a.js",
+            "convert": "<script src=\"~/scripts/a.js\"></script>"
+          },
+          {
+            "html": "sub/page-1.html",
+            "name": "b.js",
+            "type": "js",
+            "files": [
+              "tmp/sub/sub/b1.js",
+              "tmp/sub/sub/b2.js"
+            ],
+            "raw": [
+              "    <!-- build:js b.js -->",
+              "    <script src=\"b1.js\"></script>",
+              "    <script src=\"b2.js\"></script>",
+              "    <!-- endbuild -->"
+            ],
+            "lineStart": 21,
+            "lineStop": 24,
+            "dest": "tmp/sub-result/sub/b.js",
+            "convert": "<script src=\"/sub/b.js\"></script>"
+          }
+        ],
+        "images": [],
+        "scripts": [
+          {
+            "html": "sub/page-1.html",
+            "dest": "tmp/sub-result/scripts/a.js",
+            "src": "tmp/sub/scripts/a.js",
+            "name": "~/scripts/a.js",
+            "type": "js"
+          },
+          {
+            "html": "sub/page-1.html",
+            "dest": "tmp/sub-result/sub/b.js",
+            "src": "tmp/sub/sub/b.js",
+            "name": "/sub/b.js",
+            "type": "js"
+          }
+        ],
+        "styles": [
+          {
+            "html": "sub/page-1.html",
+            "dest": "tmp/sub-result/styles/c.css",
+            "src": "tmp/sub/styles/c.css",
+            "name": "/styles/c.css",
+            "type": "css"
+          },
+          {
+            "html": "sub/page-1.html",
+            "dest": "tmp/sub-result/styles/d.css",
+            "src": "tmp/sub/styles/d.css",
+            "name": "~/styles/d.css",
+            "type": "css"
+          }
+        ]
+      }
+    ],
+    "bundles": [
+      {
+        "html": "index.html",
+        "name": "/styles/c.css",
+        "type": "css",
+        "files": [
+          "tmp/sub/styles/c1.css",
+          "tmp/sub/styles/c2.css"
+        ],
+        "raw": [
+          "    <!-- build:css /styles/c.css -->",
+          "    <link rel=\"stylesheet\" href=\"/styles/c1.css\">",
+          "    <link rel=\"stylesheet\" href=\"/styles/c2.css\">",
+          "    <!-- endbuild -->"
+        ],
+        "lineStart": 4,
+        "lineStop": 7,
+        "dest": "tmp/sub-result/styles/c.css",
+        "convert": "<link rel=\"stylesheet\" type=\"text/css\" href=\"/styles/c.css\">"
+      },
+      {
+        "html": "index.html",
+        "name": "~/scripts/a.js",
+        "type": "js",
+        "files": [
+          "tmp/sub/scripts/a1.js",
+          "tmp/sub/scripts/a2.js"
+        ],
+        "raw": [
+          "    <!-- build:js ~/scripts/a.js -->",
+          "    <script src=\"~/scripts/a1.js\"></script>",
+          "    <script src=\"~/scripts/a2.js\"></script>",
+          "    <!-- endbuild -->"
+        ],
+        "lineStart": 11,
+        "lineStop": 14,
+        "dest": "tmp/sub-result/scripts/a.js",
+        "convert": "<script src=\"~/scripts/a.js\"></script>"
+      },
+      {
+        "html": "sub/page-1.html",
+        "name": "~/styles/d.css",
+        "type": "css",
+        "files": [
+          "tmp/sub/sub/d1.css",
+          "tmp/sub/sub/d2.css"
+        ],
+        "raw": [
+          "    <!-- build:css ~/styles/d.css -->",
+          "    <link rel=\"stylesheet\" href=\"./d1.css\">",
+          "    <link rel=\"stylesheet\" href=\"d2.css\">",
+          "    <!-- endbuild -->"
+        ],
+        "lineStart": 9,
+        "lineStop": 12,
+        "dest": "tmp/sub-result/styles/d.css",
+        "convert": "<link rel=\"stylesheet\" type=\"text/css\" href=\"~/styles/d.css\">"
+      },
+      {
+        "html": "sub/page-1.html",
+        "name": "b.js",
+        "type": "js",
+        "files": [
+          "tmp/sub/sub/b1.js",
+          "tmp/sub/sub/b2.js"
+        ],
+        "raw": [
+          "    <!-- build:js b.js -->",
+          "    <script src=\"b1.js\"></script>",
+          "    <script src=\"b2.js\"></script>",
+          "    <!-- endbuild -->"
+        ],
+        "lineStart": 21,
+        "lineStop": 24,
+        "dest": "tmp/sub-result/sub/b.js",
+        "convert": "<script src=\"/sub/b.js\"></script>"
+      }
+    ],
+    "images": [],
+    "scripts": [],
+    "styles": []
+  }

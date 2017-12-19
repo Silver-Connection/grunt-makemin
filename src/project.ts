@@ -854,6 +854,10 @@ export class HtmlFile implements i.HtmlFile {
      */
     public getImages(assetRoot: string = ""): HtmlFile {
         this.images = this.getAssets("img[src]");
+        const rest = this.getAssets("link:not([rel=\"stylesheet\"])");
+        if (rest && rest.length > 0) {
+            this.images = this.images.concat(rest);
+        }
         return this;
     }
 

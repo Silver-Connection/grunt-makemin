@@ -1,6 +1,6 @@
 {
   "name": "grunt-makemin",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "author": "Silver Connection",
   "description": "Replaces references to non-optimized scripts or stylesheets into a set of HTML files (or any templates/views)",
   "keywords": [

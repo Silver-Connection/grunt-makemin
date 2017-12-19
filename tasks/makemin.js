@@ -53,7 +53,7 @@ module.exports = function (grunt) {
           .getScripts(options.assetRoot)
           .getBundles(options.assetRoot)
           // Convert blocks and replace
-          .bundleConvert()
+          .bundleConvert(options.assetRoot)
           .bundleReplace();
 
         grunt.log.write("Create \"" + file + "\" and replace \"" + htmlFile.bundles.length + "\" bundles...");

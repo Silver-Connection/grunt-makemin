@@ -737,14 +737,15 @@ export class HtmlFile implements i.HtmlFile {
 
     /**
      * Convert all bundles to correct single include statement.
+     * @param {string} assetRoot - Optional relative asset root
      */
-    public bundleConvert(): HtmlFile {
+    public bundleConvert(assetRoot: string = ""): HtmlFile {
         if (this.bundles && this.bundles.length > 0) {
             this.bundles.forEach((bundle, index, arry) => {
                 if (bundle.files && bundle.files.length > 0) {
                     // Has files
                     const assetSrc = helper.getPathAsset(this.name, bundle.name);
-                    bundle.dest = helper.getPathFile(this.dest, this.name, bundle.name);
+                    bundle.dest = helper.getPathFile(this.dest, this.name, bundle.name, assetRoot);
                     if (bundle.type === "css") {
                         bundle.convert = helper.templateStyle.replace("{0}", assetSrc);
                     } else {

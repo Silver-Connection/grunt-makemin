@@ -280,7 +280,7 @@ export class Project {
         if (this.css.length > 0) {
             this.css.forEach((css, index, arry) => {
                 const rewriter = new URLRewriter(function (url: string) {
-                    if (url.substring(0, 4) === "http" || url.substring(0, 2) === "//" || url.substring(0, 4) === "data") {
+                    if (!helper.assetCheck(url)) {
                         return url;
                     }
 
@@ -317,9 +317,9 @@ export class Project {
 
     /**
      * Calculate hash for assets.
-     * @param {algorithm} string - Hash algorithm
-     * @param {length} number - Suffix length
-     * @param {process} function - Custom rename function: (file: string, suffix: string, ext: string) => string
+     * @param {string} algorithm - Hash algorithm
+     * @param {number} length - Suffix length
+     * @param {function} process - Custom rename function: (file: string, suffix: string, ext: string) => string
      */
     public revAssets(algorithm: string = "md5", length: number = 8, process?: (file: string, suffix: string, ext: string) => string): Project {
         if (this.images.length > 0) {
@@ -357,9 +357,9 @@ export class Project {
 
     /**
      * Calculate hash for bundles.
-     * @param {algorithm} string - Hash algorithm
-     * @param {length} number - Suffix length
-     * @param {process} function - Custom rename function: (file: string, suffix: string, ext: string) => string
+     * @param {string} algorithm - Hash algorithm
+     * @param {number} length - Suffix length
+     * @param {function} process - Custom rename function: (file: string, suffix: string, ext: string) => string
      */
     public revBundles(algorithm: string = "md5", length: number = 8, process?: (file: string, suffix: string, ext: string) => string): Project {
         if (this.bundles.length > 0) {
@@ -693,9 +693,9 @@ export class HtmlFile implements i.HtmlFile {
 
     /**
      * Read a html file.
-     * @param {fileName} string - Path to HTML file relative to Source root
-     * @param {srcRoot} string - Source root
-     * @param {destRoot} string - Destination root
+     * @param {string} fileName - Path to HTML file relative to Source root
+     * @param {string} srcRoot - Source root
+     * @param {string} destRoot - Destination root
      */
     public read(fileName: string, srcRoot: string = "", destRoot: string = ""): HtmlFile {
         const fullPath = path.join(srcRoot, fileName);
@@ -778,8 +778,8 @@ export class HtmlFile implements i.HtmlFile {
 
     /**
      * Get reved names from project and set them for the HTML file
-     * @param {keyGetter} keyGetter
-     * @param {reved} Reved asset from project
+     * @param {function} keyGetter - Key getter function
+     * @param {AssetFile} reved - Reved asset from project
      */
     public revSet(keyGetter: (item: HtmlFile) => Array<i.AssetFile>, reved: i.AssetFile): HtmlFile {
         const assets = keyGetter(this);
@@ -850,7 +850,7 @@ export class HtmlFile implements i.HtmlFile {
 
     /**
      * Read all img tags
-     * @param {assetRoot} string - Optional relative asset root
+     * @param {string} assetRoot - Optional relative asset root
      */
     public getImages(assetRoot: string = ""): HtmlFile {
         this.images = this.getAssets("img[src]");
@@ -859,7 +859,7 @@ export class HtmlFile implements i.HtmlFile {
 
     /**
      * Read all linked stylesheets
-     * @param {assetRoot} string - Optional relative asset root
+     * @param {string} assetRoot - Optional relative asset root
      */
     public getStyles(assetRoot: string = ""): HtmlFile {
         this.styles = this.getAssets("link[rel=\"stylesheet\"]");
@@ -868,7 +868,7 @@ export class HtmlFile implements i.HtmlFile {
 
     /**
      * Read all linked stylesheets
-     * @param {assetRoot} string - Optional relative asset root
+     * @param {string} assetRoot - Optional relative asset root
      */
     public getScripts(assetRoot: string = ""): HtmlFile {
         this.scripts = this.getAssets("script[src]");
@@ -877,8 +877,8 @@ export class HtmlFile implements i.HtmlFile {
 
     /**
      * Read all elements found by given selector and extract href or src attribute
-     * @param {selector} string - jQuery like selector
-     * @param {assetRoot} string - Optional relative asset root
+     * @param {string} selector - jQuery like selector
+     * @param {string} assetRoot - Optional relative asset root
      */
     public getAssets(selector: string, assetRoot: string = ""): Array<i.AssetFile> {
         // Load content
@@ -889,15 +889,17 @@ export class HtmlFile implements i.HtmlFile {
         if (found && found.length > 0) {
             found.each((index, element) => {
                 const name = element.attribs.href || element.attribs.src;
-                const type = path.extname(name);
-                const asset: i.AssetFile = {
-                    html: this.name,
-                    dest: helper.getPathFile(this.dest, this.name, name, assetRoot),
-                    src: helper.getPathFile(this.src, this.name, name, assetRoot),
-                    name: name,
-                    type: type.substring(1)
-                };
-                assets.push(asset);
+                if (helper.assetCheck(name)) {
+                    const type = path.extname(name);
+                    const asset: i.AssetFile = {
+                        html: this.name,
+                        dest: helper.getPathFile(this.dest, this.name, name, assetRoot),
+                        src: helper.getPathFile(this.src, this.name, name, assetRoot),
+                        name: name,
+                        type: type.substring(1)
+                    };
+                    assets.push(asset);
+                }
             });
         }
 
@@ -906,7 +908,7 @@ export class HtmlFile implements i.HtmlFile {
 
     /**
      * Read content and extract all bundles information from it.
-     * @param {assetRoot} string - Optional relative asset root
+     * @param {string} assetRoot - Optional relative asset root
      */
     public getBundles(assetRoot: string = ""): HtmlFile {
         const lines = this.content.replace(/\r\n/g, "\n").split(/\n/);
@@ -933,7 +935,7 @@ export class HtmlFile implements i.HtmlFile {
                 bundle.raw.push(line);
                 if (!isStart && !isStop) {
                     const isAsset = line.match(helper.matchAsset);
-                    if (isAsset && isAsset[2]) {
+                    if (isAsset && isAsset[2] && helper.assetCheck(isAsset[2])) {
                         bundle.files.push(helper.getPathFile(this.src, this.name, isAsset[2], assetRoot));
                     }
                 }

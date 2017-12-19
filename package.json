@@ -1,6 +1,6 @@
 {
   "name": "grunt-makemin",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": "Silver Connection",
   "description": "Replaces references to non-optimized scripts or stylesheets into a set of HTML files (or any templates/views)",
   "keywords": [
@@ -46,35 +46,35 @@
     "test": "tsc && grunt tests && jest"
   },
   "dependencies": {
-    "mkdirp": "^0.5.1",
     "chalk": "^1.1.1",
     "cheerio": "^1.0.0-rc.2",
-    "cssurl": "https://github.com/Silver-Connection/cssurl.git"
+    "cssurl": "https://github.com/Silver-Connection/cssurl.git",
+    "mkdirp": "^0.5.1"
   },
   "devDependencies": {
     "@types/bcrypt-nodejs": "0.0.30",
     "@types/body-parser": "^1.16.2",
-    "@types/compression": "0.0.33",
     "@types/cheerio": "^0.22.6",
+    "@types/compression": "0.0.33",
     "@types/dotenv": "^2.0.20",
     "@types/errorhandler": "0.0.30",
-    "@types/jest": "^19.2.2",
     "@types/grunt": "^0.4.22",
-    "@types/node": "^7.0.12",
+    "@types/jest": "^19.2.2",
     "@types/mkdirp": "^0.5.2",
+    "@types/node": "^7.0.12",
+    "concurrently": "^3.5.1",
     "grunt": "^1.0.1",
+    "grunt-browser-sync": "^2.2.0",
     "grunt-cli": "^1.2.0",
-    "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-clean": "^1.1.0",
     "grunt-contrib-concat": "^1.0.1",
-    "grunt-contrib-uglify": "^3.2.1",
-    "grunt-contrib-jshint": "^1.1.0",
+    "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-cssmin": "^2.2.1",
     "grunt-contrib-htmlmin": "^2.4.0",
+    "grunt-contrib-jshint": "^1.1.0",
     "grunt-contrib-rename": "^0.2.0",
-    "grunt-browser-sync": "^2.2.0",
+    "grunt-contrib-uglify": "^3.2.1",
     "grunt-mkdir": "^1.0.0",
-    "concurrently": "^3.5.1",
     "jest": "^21.2.1",
     "shelljs": "^0.7.8",
     "ts-jest": "^21.2.4",
@@ -85,7 +85,7 @@
     "grunt": ">=0.4.0"
   },
   "engines": {
-    "node": ">=0.10.0",
+    "node": ">=4.0.0",
     "yarn": ">= 1.0.0"
   },
   "files": [

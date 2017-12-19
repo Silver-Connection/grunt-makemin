@@ -53,6 +53,7 @@ The given sample will read all HTML files in ```wwwroot-src``` and will copy all
         src: "{,*/}*.html",
         dest: "wwwroot-dest",
         options: {
+            assetRoot: "",
             logWrite: true,
             minCss: true,
             minJs: true,
@@ -62,7 +63,7 @@ The given sample will read all HTML files in ```wwwroot-src``` and will copy all
                 collapseWhitespace: true
             },
             revAssets: true,
-            revAlgorithm: 'md5',
+            revAlgorithm: "md5",
             revLength: 8
         }
     },
@@ -131,6 +132,7 @@ You can set some options, to enable some functionalities.
 
 | Option | Type | Description |
 |-|-|-|
+|assetRoot| string | Optional relative path from source (cwd) to assets |
 |minCss| boolean | Generate ```cssmin``` configuration |
 |minJs| boolean | Generate ```uglify``` configuration |
 |minHtml| boolean | Generate ```htmlmin``` configuration |

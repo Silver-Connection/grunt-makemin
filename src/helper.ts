@@ -28,15 +28,16 @@ export const templateScript = '<script src="{0}"></script>';
  * @param {cwd} string - Root path
  * @param {html} string - Path to HTML file relative to root path
  * @param {include} string - Path to asset, used in HTML file
+ * @param {assetRoot} string - Path to asset, used in HTML file
  */
-export function getPathFile(cwd: string, html: string, include: string): string {
+export function getPathFile(cwd: string, html: string, include: string, assetRoot: string = ""): string {
     if (isPathAbsolute(include)) {
         // Is absolute
-        return path.join(cwd, include.substr(1));
+        return path.join(cwd, assetRoot, include.substr(1));
     } else {
         // Is relative, now we need to get the base path of the html file
         const relative = path.dirname(html);
-        return path.join(cwd, relative, include);
+        return path.join(cwd, assetRoot, relative, include);
     }
 }
 

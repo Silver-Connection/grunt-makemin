@@ -12,6 +12,7 @@ module.exports = function (grunt) {
   // Internal lib.
   var pr = require('../lib/project');
   var defaultOptions = {
+    assetRoot: "",
     logWrite: false,
     minCss: false,
     minJs: false,
@@ -47,10 +48,10 @@ module.exports = function (grunt) {
           // Read file
           .read(file, fileContext.cwd, fileContext.dest)
           // Get assets
-          .getImages()
-          .getStyles()
-          .getScripts()
-          .getBundles()
+          .getImages(options.assetRoot)
+          .getStyles(options.assetRoot)
+          .getScripts(options.assetRoot)
+          .getBundles(options.assetRoot)
           // Convert blocks and replace
           .bundleConvert()
           .bundleReplace();

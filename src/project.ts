@@ -850,32 +850,37 @@ export class HtmlFile implements i.HtmlFile {
 
     /**
      * Read all img tags
+     * @param {assetRoot} string - Optional relative asset root
      */
-    public getImages(): HtmlFile {
+    public getImages(assetRoot: string = ""): HtmlFile {
         this.images = this.getAssets("img[src]");
         return this;
     }
 
     /**
      * Read all linked stylesheets
+     * @param {assetRoot} string - Optional relative asset root
      */
-    public getStyles(): HtmlFile {
+    public getStyles(assetRoot: string = ""): HtmlFile {
         this.styles = this.getAssets("link[rel=\"stylesheet\"]");
         return this;
     }
 
     /**
      * Read all linked stylesheets
+     * @param {assetRoot} string - Optional relative asset root
      */
-    public getScripts(): HtmlFile {
+    public getScripts(assetRoot: string = ""): HtmlFile {
         this.scripts = this.getAssets("script[src]");
         return this;
     }
 
     /**
      * Read all elements found by given selector and extract href or src attribute
+     * @param {selector} string - jQuery like selector
+     * @param {assetRoot} string - Optional relative asset root
      */
-    public getAssets(selector: string): Array<i.AssetFile> {
+    public getAssets(selector: string, assetRoot: string = ""): Array<i.AssetFile> {
         // Load content
         const $ = cheerio.load(this.content);
         const found = $(selector);
@@ -887,8 +892,8 @@ export class HtmlFile implements i.HtmlFile {
                 const type = path.extname(name);
                 const asset: i.AssetFile = {
                     html: this.name,
-                    dest: helper.getPathFile(this.dest, this.name, name),
-                    src: helper.getPathFile(this.src, this.name, name),
+                    dest: helper.getPathFile(this.dest, this.name, name, assetRoot),
+                    src: helper.getPathFile(this.src, this.name, name, assetRoot),
                     name: name,
                     type: type.substring(1)
                 };
@@ -901,8 +906,9 @@ export class HtmlFile implements i.HtmlFile {
 
     /**
      * Read content and extract all bundles information from it.
+     * @param {assetRoot} string - Optional relative asset root
      */
-    public getBundles(): HtmlFile {
+    public getBundles(assetRoot: string = ""): HtmlFile {
         const lines = this.content.replace(/\r\n/g, "\n").split(/\n/);
         let inBlock = false;
         let bundle: i.BundleFile;
@@ -928,7 +934,7 @@ export class HtmlFile implements i.HtmlFile {
                 if (!isStart && !isStop) {
                     const isAsset = line.match(helper.matchAsset);
                     if (isAsset && isAsset[2]) {
-                        bundle.files.push(helper.getPathFile(this.src, this.name, isAsset[2]));
+                        bundle.files.push(helper.getPathFile(this.src, this.name, isAsset[2], assetRoot));
                     }
                 }
             }

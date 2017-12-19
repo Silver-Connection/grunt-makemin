@@ -323,31 +323,31 @@ export class Project {
      */
     public revAssets(algorithm: string = "md5", length: number = 8, process?: (file: string, suffix: string, ext: string) => string): Project {
         if (this.images.length > 0) {
-            this.images.forEach((image, index, arr) => {
-                image.reved = helper.revAsset(image.src, algorithm, length, process);
+            this.images.forEach((asset, index, arr) => {
+                asset.reved = helper.revAsset(asset.src, algorithm, length, process);
 
                 this.html.forEach((ht, index, arry) => {
-                    ht.revSet((h) => h.images, image);
+                    ht.revSet((h) => h.images, asset);
                 });
             });
         }
 
         if (this.scripts.length > 0) {
-            this.scripts.forEach((image, index, arr) => {
-                image.reved = helper.revAsset(image.src, algorithm, length, process);
+            this.scripts.forEach((asset, index, arr) => {
+                asset.reved = helper.revAsset(asset.src, algorithm, length, process);
 
                 this.html.forEach((ht, index, arry) => {
-                    ht.revSet((h) => h.scripts, image);
+                    ht.revSet((h) => h.scripts, asset);
                 });
             });
         }
 
         if (this.styles.length > 0) {
-            this.styles.forEach((image, index, arr) => {
-                image.reved = helper.revAsset(image.src, algorithm, length, process);
+            this.styles.forEach((asset, index, arr) => {
+                asset.reved = helper.revAsset(asset.src, algorithm, length, process);
 
                 this.html.forEach((ht, index, arry) => {
-                    ht.revSet((h) => h.styles, image);
+                    ht.revSet((h) => h.styles, asset);
                 });
             });
         }
@@ -671,6 +671,8 @@ export class Project {
 }
 
 export class HtmlFile implements i.HtmlFile {
+    private hasCRLF = false;
+
     constructor() {
     }
 
@@ -707,6 +709,7 @@ export class HtmlFile implements i.HtmlFile {
         this.dest = destRoot;
         this.name = fileName;
         this.content = fs.readFileSync(fullPath).toString();
+        this.hasCRLF = this.content.indexOf("\r") > -1;
 
         return this;
     }
@@ -764,7 +767,7 @@ export class HtmlFile implements i.HtmlFile {
     public bundleReplace(): HtmlFile {
         if (this.bundles && this.bundles.length > 0) {
             this.bundles.forEach((bundle, index, arry) => {
-                const raw = bundle.raw.join("\n");
+                const raw = bundle.raw.join(this.hasCRLF ? "\r\n" : "\n");
                 const indent = (bundle.raw[0].match(/^\s*/) || [])[0];
                 this.content = this.content.replace(raw, indent + bundle.convert);
             });

@@ -114,6 +114,10 @@ export function sortBy<T>(list: Array<T>, keyGetter: (item: T) => string | numbe
  * @param {function} process - Custom rename function: (file: string, suffix: string, ext: string) => string
  */
 export function revAsset(file: string, algorithm: string, length: number, process?: (file: string, suffix: string, ext: string) => string): string {
+    if (!fs.existsSync(file)) {
+        return path.basename(file) + "-NOT-FOUND";
+    }
+
     const hash = crypto.createHash(algorithm).update(fs.readFileSync(file)).digest("hex");
     const suffix = hash.slice(0, length);
     const ext = path.extname(file);

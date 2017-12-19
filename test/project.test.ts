@@ -286,6 +286,90 @@ describe("class: HtmlFile", () => {
                 expect(asset.html).toBe("template/index.html");
                 expect(asset.dest).toBe("template/images/logo.png");
             });
+
+            it("getStyles(): HTML - Find all styles, skip invalid ones", () => {
+                let htmlFile = new pr.HtmlFile();
+                htmlFile = htmlFile
+                    .read("assets.html", getPath("fixtures"))
+                    .getStyles();
+
+                expect(htmlFile.styles).toHaveLength(1);
+
+                const asset = htmlFile.styles[0];
+                expect(asset.name).toBe("~/styles/c1.css");
+                expect(asset.type).toBe("css");
+                expect(asset.html).toBe("assets.html");
+                expect(asset.dest).toBe("/styles/c1.css");
+            });
+
+            it("getImages(): HTML - Find all images and other assets, skip invalid ones", () => {
+                let htmlFile = new pr.HtmlFile();
+                htmlFile = htmlFile
+                    .read("assets.html", getPath("fixtures"))
+                    .getImages();
+
+                expect(htmlFile.images).toHaveLength(2);
+
+                let asset = htmlFile.images[0];
+                expect(asset.name).toBe("/favicons/apple-icon-72x72.png");
+                expect(asset.type).toBe("png");
+                expect(asset.html).toBe("assets.html");
+                expect(asset.dest).toBe("favicons/apple-icon-72x72.png");
+
+                asset = htmlFile.images[1];
+                expect(asset.name).toBe("/favicons/android-icon-72x72.png");
+                expect(asset.type).toBe("png");
+                expect(asset.html).toBe("assets.html");
+                expect(asset.dest).toBe("favicons/android-icon-72x72.png");
+            });
+
+            it("getImages(): HTML - Set optional asset root path", () => {
+                let htmlFile = new pr.HtmlFile();
+                htmlFile = htmlFile
+                    .read("assets.html", getPath("fixtures"))
+                    .getImages("wwwroot");
+
+                expect(htmlFile.images).toHaveLength(2);
+
+                let asset = htmlFile.images[0];
+                expect(asset.name).toBe("/favicons/apple-icon-72x72.png");
+                expect(asset.type).toBe("png");
+                expect(asset.html).toBe("assets.html");
+                expect(asset.dest).toBe("wwwroot/favicons/apple-icon-72x72.png");
+
+                asset = htmlFile.images[1];
+                expect(asset.name).toBe("/favicons/android-icon-72x72.png");
+                expect(asset.type).toBe("png");
+                expect(asset.html).toBe("assets.html");
+                expect(asset.dest).toBe("wwwroot/favicons/android-icon-72x72.png");
+            });
+
+            it("getScripts(): HTML - Set optional asset root path and file in sub directory", () => {
+                let htmlFile = new pr.HtmlFile();
+                htmlFile = htmlFile
+                    .read("sub/getScripts_clean.html", getPath("fixtures"))
+                    .getScripts("wwwroot");
+
+                expect(htmlFile.scripts).toHaveLength(3);
+
+                let asset = htmlFile.scripts[0];
+                expect(asset.name).toBe("~/scripts/a1.js");
+                expect(asset.type).toBe("js");
+                expect(asset.html).toBe("sub/getScripts_clean.html");
+                expect(asset.dest).toBe("wwwroot/scripts/a1.js");
+
+                asset = htmlFile.scripts[1];
+                expect(asset.name).toBe("/scripts/a2.js");
+                expect(asset.type).toBe("js");
+                expect(asset.html).toBe("sub/getScripts_clean.html");
+                expect(asset.dest).toBe("wwwroot/scripts/a2.js");
+
+                asset = htmlFile.scripts[2];
+                expect(asset.name).toBe("a3.js");
+                expect(asset.type).toBe("js");
+                expect(asset.html).toBe("sub/getScripts_clean.html");
+                expect(asset.dest).toBe("wwwroot/sub/a3.js");
+            });
         });
 
         describe("CSS", () => {

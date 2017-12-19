@@ -853,8 +853,8 @@ export class HtmlFile implements i.HtmlFile {
      * @param {string} assetRoot - Optional relative asset root
      */
     public getImages(assetRoot: string = ""): HtmlFile {
-        this.images = this.getAssets("img[src]");
-        const rest = this.getAssets("link:not([rel=\"stylesheet\"])");
+        this.images = this.getAssets("img[src]", assetRoot);
+        const rest = this.getAssets("link:not([rel=\"stylesheet\"])", assetRoot);
         if (rest && rest.length > 0) {
             this.images = this.images.concat(rest);
         }
@@ -866,7 +866,7 @@ export class HtmlFile implements i.HtmlFile {
      * @param {string} assetRoot - Optional relative asset root
      */
     public getStyles(assetRoot: string = ""): HtmlFile {
-        this.styles = this.getAssets("link[rel=\"stylesheet\"]");
+        this.styles = this.getAssets("link[rel=\"stylesheet\"]", assetRoot);
         return this;
     }
 
@@ -875,7 +875,7 @@ export class HtmlFile implements i.HtmlFile {
      * @param {string} assetRoot - Optional relative asset root
      */
     public getScripts(assetRoot: string = ""): HtmlFile {
-        this.scripts = this.getAssets("script[src]");
+        this.scripts = this.getAssets("script[src]", assetRoot);
         return this;
     }
 
